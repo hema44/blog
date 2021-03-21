@@ -15,14 +15,9 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->name = $request->name;
         $result = $user->save();
-        if($result){
-            return 'done';
-        }else{
-            return 'erro';
-        }
     }
 //this function will retreie all user data
-    public function show(){
+    public function index(){
         return User::all();
     }
     //this function will delete user by useing user_id

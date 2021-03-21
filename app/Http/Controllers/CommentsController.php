@@ -16,7 +16,7 @@ class CommentsController extends Controller
         $comment->save();
     }
     // this function used for gete all comments data
-    public function show(){
+    public function index(){
         return Comments::all();
     }
 

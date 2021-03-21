@@ -17,14 +17,13 @@ class PostsController extends Controller
         $Posts->save();
     }
     //this function for get all data from post table
-    public function show(){
-        $post = Posts::all();
-        return $post;
+    public function index(){
+        return  Posts::all();
+
     }
     //this function used o delete posts and related comment
-    public function destroy($id){
-        $post = Posts::find($id);
-
+    public function destroy($post_id){
+        $post = Posts::find($post_id);
         $post->delete();
     }
 
