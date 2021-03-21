@@ -9,7 +9,7 @@ class UserController extends Controller
 {
 
     // function will store data to user table
-    public function insert(Request $request){
+    public function store(Request $request){
         $user = new User;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -22,11 +22,11 @@ class UserController extends Controller
         }
     }
 //this function will retreie all user data
-    public function getdata(){
+    public function show(){
         return User::all();
     }
     //this function will delete user by useing user_id
-    public function delete($id){
+    public function destroy($id){
         $user = User::find($id);
         $user->delete();
     }

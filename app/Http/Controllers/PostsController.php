@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     //this function used for insert the post
-    public function insert(Request $request){
+    public function store(Request $request){
         $Posts = new Posts;
         $Posts->Title = $request->Title;
         $Posts->body = $request->body;
@@ -17,12 +17,12 @@ class PostsController extends Controller
         $Posts->save();
     }
     //this function for get all data from post table
-    public function getdata(){
+    public function show(){
         $post = Posts::all();
         return $post;
     }
     //this function used o delete posts and related comment
-    public function delete($id){
+    public function destroy($id){
         $post = Posts::find($id);
 
         $post->delete();

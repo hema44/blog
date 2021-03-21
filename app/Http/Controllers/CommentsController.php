@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CommentsController extends Controller
 {
     //this function used for insert data to comment table
-    public function insert(Request $request){
+    public function store(Request $request){
         $comment = new Comments;
         $comment->post_id = $request->post_id;
         $comment->user_id=$request->user_id;
@@ -16,12 +16,12 @@ class CommentsController extends Controller
         $comment->save();
     }
     // this function used for gete all comments data
-    public function getdata(){
+    public function show(){
         return Comments::all();
     }
 
     //this used for delete comment data by id
-    public function delete($id){
+    public function destroy($id){
         $comment = Comments::find($id);
         $comment->delete();
     }
