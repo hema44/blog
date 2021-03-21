@@ -24,6 +24,7 @@ class PostsController extends Controller
     //this function used o delete posts and related comment
     public function delete($id){
         $post = Posts::find($id);
+
         $post->delete();
     }
 
