@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostsController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,18 +17,22 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('logout', [AuthController::class,'logout']);
+
 });
-// this all Request for[posts-users-comments] without any auth
-Route::get('comments',[CommentsController::class,'show']);
-Route::post('comment/insert',[CommentsController::class,'store']);
-Route::get('comment/delete',[CommentsController::class,'destroy']);
 
-Route::post('user/insert',[UserController::class,'store']);
-Route::get('user',[UserController::class,'show']);
-Route::delete('/user/{id}',[UserController::class , 'destroy']);
-
-Route::post('post/insert',[PostsController::class,'store']);
-Route::get('posts',[PostsController::class,'index']);
-Route::delete('/post/{post_id}',[PostsController::class , 'destroy']);
+Route::group(['middleware' => ['auth:api']], function() {
+    Route::post('posts/', [PostsController::class , 'store']);
+    Route::get('posts/',[PostsController::class , 'index']);
+    Route::get('post/{id}',[PostsController::class , 'show']);
+    Route::delete('post/{id}', [PostsController::class , 'destroy']);
+    Route::put('post/{id}',[PostsController::class , 'update']);
+    Route::post('comment/', [PostsController::class , 'store']);
+    Route::get('comment/',[PostsController::class , 'index']);
+    Route::delete('comment/{id}', [PostsController::class , 'destroy']);
+    Route::put('comment/{id}',[PostsController::class , 'update']);
+});
