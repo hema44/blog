@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class UserController extends Controller
 {
 
     // function will store data to user table
-    public function store(Request $request){
+    public function store(UserRequest $request){
         $user = new User;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comments;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class CommentsController extends Controller
     }
 
     //this function used for insert data to comment table
-    public function store(Request $request){
+    public function store(CommentRequest $request){
         $comment = new Comments;
         $comment->post_id = $request->post_id;
         $comment->user_id=auth()->user()->getAuthIdentifier();
@@ -26,7 +27,7 @@ class CommentsController extends Controller
     }
 
     //public function used for update comment
-    public function update(Request $request,$id){
+    public function update(CommentRequest $request,$id){
         $post = Comments::find($id);
         $post->Title = $request->post_id;
         $post->body = $request->body;

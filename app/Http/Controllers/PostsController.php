@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Posts;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+
 use Tymon\JWTAuth\Exception\UserNotDefinedException;
 
 class PostsController extends Controller
@@ -18,7 +19,7 @@ class PostsController extends Controller
         return Posts::find($id);
     }
     //this function used for insert the post
-    public function store(Request $request){
+    public function store(PostRequest $request){
         $Posts = new Posts;
         $Posts->Title = $request->Title;
         $Posts->body = $request->body;
@@ -27,7 +28,7 @@ class PostsController extends Controller
     }
 
     //this function used for update the post
-    public function update(Request $request , $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Posts::find($id);
         $post->Title = $request->Title;
