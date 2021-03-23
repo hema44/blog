@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CommentRequest;
+use App\Http\Requests\CreatCommentRequest;
+use App\Http\Requests\UpdatecommentRequest;
 use App\Models\Comments;
 use Illuminate\Http\Request;
 
@@ -18,25 +19,27 @@ class CommentsController extends Controller
     }
 
     //this function used for insert data to comment table
-    public function store(CommentRequest $request){
-        $comment = new Comments;
-        $comment->post_id = $request->post_id;
-        $comment->user_id=auth()->user()->getAuthIdentifier();
-        $comment->body=$request->body;
-        $comment->save();
+    public function store(CreatCommentRequest $request){
+        Comments::insert([
+            'post_id' => $request->post_id,
+            'user_id' => auth()->id(),
+            'body' => $request->body,
+            'created_at'=> now(),
+            'updated_at'=> now()
+        ]);
     }
 
     //public function used for update comment
-    public function update(CommentRequest $request,$id){
-        $post = Comments::find($id);
-        $post->Title = $request->post_id;
-        $post->body = $request->body;
-        $post->save();
+    public function update(UpdatecommentRequest $request, $id){
+        Comments::where('id',$id)
+        ->updated([
+            'body'=> $request->body,
+            'updated_at'=> now()
+        ]);
     }
 
     //this used for delete comment data by id
     public function destroy($id){
-        $comment = Comments::find($id);
-        $comment->delete();
+        Comments::find($id)->delete();
     }
 }
