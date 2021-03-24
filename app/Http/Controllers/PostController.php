@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\post\CollectionPostResource;
+use App\Http\Resources\post\ShowPostResource;
 use App\Models\Post;
 use App\Http\Requests\post\UpdatePostRequest;
 use App\Http\Requests\post\CreatePostRequest;
@@ -16,8 +18,8 @@ class PostController extends Controller
      * @author ibrahem
      */
     public function index(){
-        $posts = Post::all();
-        return response()->json(['message' => $posts]);
+
+        return new CollectionPostResource(Post::all(), 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -29,8 +31,7 @@ class PostController extends Controller
      */
 
     public function show($id){
-        $post = Post::find($id);
-        return response()->json(['message' => $post]);
+        return new ShowPostResource(Post::find($id) , 200 , [] ,JSON_FORCE_OBJECT);
     }
 
     /**
@@ -45,6 +46,7 @@ class PostController extends Controller
         $data +=['user_id' => auth()->id()];
         $data += ['created_at' => now()];
         Post::insert($data);
+        return response()->json(['massage'=> 'your post is inserted '],200,[],JSON_FORCE_OBJECT);
     }
 
     /**
@@ -58,6 +60,7 @@ class PostController extends Controller
         $data = $request->validated();
         $data += ['updated_at' => now()];
         Post::Where('id',$id)->update($data);
+        return response()->json(['massage'=> 'your post is updated '],200,[],JSON_FORCE_OBJECT);
     }
 
     /**
@@ -69,6 +72,7 @@ class PostController extends Controller
 
     public function destroy($id){
         Post::find($id)->delete();
+        return response()->json(['massage'=> 'your post is deleted '],200,[],JSON_FORCE_OBJECT);
     }
 
 }
