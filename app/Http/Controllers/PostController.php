@@ -35,7 +35,7 @@ class PostController extends Controller
 
     /**
      *
-     *take data from request and validated it then store it into database
+     *take data from request and validated it then store it into post table
      *
      * @author ibrahem
      */
@@ -52,6 +52,7 @@ class PostController extends Controller
      *
      * @author ibrahem
      */
+
     public function update(UpdatePostRequest $request, $id)
     {
         $data = $request->validate($request->rules());
@@ -67,6 +68,8 @@ class PostController extends Controller
      *
      * @author ibrahem
      */
+
+
     public function destroy($id){
         Post::find($id)->delete();
     }
