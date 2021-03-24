@@ -41,7 +41,7 @@ class PostController extends Controller
      */
 
     public function store(CreatePostRequest $request){
-        $data = $request->validate($request->rules());
+        $data =$request->validated();
         $data +=['user_id' => auth()->id()];
         $data += ['created_at' => now()];
         Post::insert($data);
@@ -55,12 +55,9 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, $id)
     {
-        $data = $request->validate($request->rules());
-        $post = Post::find($id);
-        $post->Title = $data['Title'];
-        $post->body = $data['body'];
-        $post->created_at = now();
-        $post->save();
+        $data = $request->validated();
+        $data += ['updated_at' => now()];
+        Post::Where('id',$id)->update($data);
     }
 
     /**

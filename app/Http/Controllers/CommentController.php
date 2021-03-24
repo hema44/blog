@@ -38,7 +38,7 @@ class CommentController extends Controller
      * @author ibrahem
      */
     public function store(CreateCommentRequest $request){
-        $data = $request->validate($request->rules());
+        $data = $request->validated();
         $data +=['user_id' => auth()->id()];
         $data +=['created_at'=> now()];
         Comment::insert($data);
@@ -53,11 +53,9 @@ class CommentController extends Controller
      */
 
     public function update(UpdateCommentRequest $request, $id){
-        $data = $request->validate($request->rules());
-        $comment = Comment::find($id);
-        $comment->body = $data['body'];
-        $comment->updated_at = now();
-        $comment->save();
+        $data = $request->validated();
+        $data +=['updated_at' => now()];
+        Comment::where('id',$id)->update($data);
     }
 
     /**
