@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\comment\CreateCommentRequest;
 use App\Http\Requests\comment\UpdateCommentRequest;
+use App\Http\Resources\comment\CollectionCommentResource;
+use App\Http\Resources\comment\ShowCommentResource;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -16,7 +18,7 @@ class CommentController extends Controller
      */
 
     public function index(){
-        return response()->json(['message' => Comment::all()]);
+        return new CollectionCommentResource(Comment::all(), 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -28,7 +30,7 @@ class CommentController extends Controller
      */
 
     public function show($id){
-        return response()->json(['message' => Comment::find($id)]);
+        return new ShowCommentResource(Comment::find($id), 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -42,6 +44,7 @@ class CommentController extends Controller
         $data +=['user_id' => auth()->id()];
         $data +=['created_at'=> now()];
         Comment::insert($data);
+        return response()->json(['massage'=> 'you comment is insered'], 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -56,6 +59,7 @@ class CommentController extends Controller
         $data = $request->validated();
         $data +=['updated_at' => now()];
         Comment::where('id',$id)->update($data);
+        return response()->json(['massage'=> 'you comment is updated'], 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -66,5 +70,6 @@ class CommentController extends Controller
 
     public function destroy($id){
         Comment::find($id)->delete();
+        return response()->json(['massage'=> 'you comment is deleted'], 200, [], JSON_FORCE_OBJECT);
     }
 }
