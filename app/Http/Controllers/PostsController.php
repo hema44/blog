@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Posts;
-use App\Models\User;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\UpdatePostsRequest;
+use App\Http\Requests\CreatPostRequest;
 
-use Tymon\JWTAuth\Exception\UserNotDefinedException;
 
 class PostsController extends Controller
 {
@@ -19,28 +18,31 @@ class PostsController extends Controller
         return Posts::find($id);
     }
     //this function used for insert the post
-    public function store(PostRequest $request){
-        $Posts = new Posts;
-        $Posts->Title = $request->Title;
-        $Posts->body = $request->body;
-        $Posts->user_id = auth()->user()->getAuthIdentifier();
-        $Posts->save();
+    public function store(CreatPostRequest $request){
+        Posts::insert([
+            'Title' => $request->Title,
+            'body' => $request->body,
+            'user_id' => auth()->id(),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 
     //this function used for update the post
-    public function update(PostRequest $request, $id)
+    public function update(UpdatePostsRequest $request, $id)
     {
-        $post = Posts::find($id);
-        $post->Title = $request->Title;
-        $post->body = $request->body;
-        $post->save();
+        Posts::where('id',$id)
+            ->update([
+            'Title' => $request->Title,
+            'body' => $request->body,
+            'updated_at' => now()
+        ]);
 
     }
 
     //this function used o delete posts and related comment
-    public function destroy($post_id){
-        $post = Posts::find($post_id);
-        $post->delete();
+    public function destroy($id){
+        Posts::find($id)->delete();
     }
 
 }
