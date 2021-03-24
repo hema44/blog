@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,16 +26,16 @@ Route::group([
 
 Route::group(['middleware' => ['auth:api']], function() {
 
-    Route::post('post/', [PostsController::class , 'store']);
-    Route::get('post/',[PostsController::class , 'index']);
-    Route::get('post/{id}',[PostsController::class , 'show']);
-    Route::delete('post/{id}', [PostsController::class , 'destroy']);
-    Route::put('post/{id}',[PostsController::class , 'update']);
+    Route::post('post/', [PostController::class , 'store']);
+    Route::get('post/',[PostController::class , 'index']);
+    Route::get('post/{id}',[PostController::class , 'show']);
+    Route::delete('post/{id}', [PostController::class , 'destroy']);
+    Route::put('post/{id}',[PostController::class , 'update']);
 
 
-    Route::post('comment/', [CommentsController::class , 'store']);
-    Route::get('comment/',[CommentsController::class , 'index']);
-    Route::get('comment/{id}',[CommentsController::class , 'show']);
-    Route::delete('comment/{id}', [CommentsController::class , 'destroy']);
-    Route::put('comment/{id}',[CommentsController::class , 'update']);
+    Route::post('comment/', [CommentController::class , 'store']);
+    Route::get('comment/',[CommentController::class , 'index']);
+    Route::get('comment/{id}',[CommentController::class , 'show']);
+    Route::delete('comment/{id}', [CommentController::class , 'destroy']);
+    Route::put('comment/{id}',[CommentController::class , 'update']);
 });
