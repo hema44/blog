@@ -53,7 +53,7 @@ class UserController extends Controller
         Mail::send('welcome_email', $details, function ($message) use ($details) {
             $message->to($details['email'], $details['name'])
                 ->subject('Thanks for be one of Hovo family')
-                ->from('info@mynotepaper.com', 'MyNotePaper');
+                ->from('info@mynotepaper.com');
         });
     }
     /**
