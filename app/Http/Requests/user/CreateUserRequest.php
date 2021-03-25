@@ -26,7 +26,7 @@ class CreateUserRequest extends FormRequest
         return [
             'name' => 'required',
             'password' => 'required|regex:/(^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$)/u',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'image' => 'required'
         ];
     }
