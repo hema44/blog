@@ -18,8 +18,17 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request){
         $data = $request->validated();
+        $image = $this->storeimage();
+        $data['image'] = $image;
         $data['password'] = bcrypt($data['password'] );
-        User::create($data);
+        $data += ['created_at' => now()];
+        User::insert($data);
+    }
+    public function storeimage(){
+        $post_image = $_FILES['image']['name'];
+        $post_image_temp = $_FILES['image']['tmp_name'];
+        move_uploaded_file($post_image_temp,"images/user/$post_image");
+        return $post_image;
     }
     /**
      *
@@ -40,7 +49,7 @@ class UserController extends Controller
      */
 
     public function destroy($id){
-        User::where('id',$id)
+        User::find($id)
         ->delete();
     }
 }
