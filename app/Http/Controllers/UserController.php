@@ -41,7 +41,7 @@ class UserController extends Controller
     }
     /**
      *
-     * sending email with done
+     * @sending  welcome Email when user login in the system
      *
      * @author ibrahem
      */

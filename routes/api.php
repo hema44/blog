@@ -24,8 +24,7 @@ Route::group([
 });
 
 
-Route::group(['middleware' => ['auth:api']], function() {
-
+Route::middleware(['jwt.verify'])->group(function() {
     Route::post('post/', [PostController::class , 'store']);
     Route::get('post/',[PostController::class , 'index']);
     Route::get('post/{id}',[PostController::class , 'show']);
