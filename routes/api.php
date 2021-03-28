@@ -28,9 +28,10 @@ Route::middleware(['jwt.verify'])->group(function() {
     Route::post('post/', [PostController::class , 'store']);
     Route::get('post/',[PostController::class , 'index']);
     Route::get('post/{id}',[PostController::class , 'show']);
-    Route::delete('post/{id}', [PostController::class , 'destroy']);
-    Route::put('post/{id}',[PostController::class , 'update']);
-
+    Route::middleware('user.verify')->group(function ($id){
+        Route::delete('post/{id}', [PostController::class , 'destroy']);
+        Route::put('post/{id}',[PostController::class , 'update']);
+    });
 
     Route::post('comment/', [CommentController::class , 'store']);
     Route::get('comment/',[CommentController::class , 'index']);
