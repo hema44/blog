@@ -45,7 +45,7 @@ class PostController extends Controller
         $data =$request->validated();
         $data +=['user_id' => auth()->id()];
         $data += ['created_at' => now()];
-        Post::insert($data);
+        Post::create($data);
         return response()->json(['massage'=> 'your post is inserted '],200,[],JSON_FORCE_OBJECT);
     }
 
