@@ -43,7 +43,7 @@ class CommentController extends Controller
         $data = $request->validated();
         $data +=['user_id' => auth()->id()];
         $data +=['created_at'=> now()];
-        Comment::insert($data);
+        Comment::create($data);
         return response()->json(['massage'=> 'you comment is insered'], 200, [], JSON_FORCE_OBJECT);
     }
 
