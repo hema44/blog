@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\user\CreateUserRequest;
+use App\Http\Resources\user\createdUserResource;
 use App\Jobs\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -21,12 +22,13 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request){
         $data = $request->validated();
-        $image = $this->storeimage();
-        $data['image'] = $image;
+
+        $post_image = $_FILES['image']['name'];
+        $data['image'] = $post_image;
         $data['password'] = bcrypt($data['password'] );
-        $data += ['created_at' => now()];
-        User::insert($data);
+        User::create($data);
         SendMail::dispatch($data['email']);
+        return new createdUserResource('userr is inserted' , 200 , [] ,JSON_FORCE_OBJECT);
     }
     /**
      *
