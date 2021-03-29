@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\comment\CreateCommentRequest;
-use App\Http\Requests\comment\UpdateCommentRequest;
-use App\Http\Resources\comment\CollectionCommentResource;
-use App\Http\Resources\comment\ShowCommentResource;
+use App\Http\Requests\Comment\CreateCommentRequest;
+use App\Http\Requests\Comment\UpdateCommentRequest;
+use App\Http\Resources\Comment\CollectionCommentResource;
+use App\Http\Resources\Comment\ShowCommentResource;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -18,7 +18,8 @@ class CommentController extends Controller
      */
 
     public function index(){
-        return new CollectionCommentResource(Comment::all(), 200, [], JSON_FORCE_OBJECT);
+        $data = new CollectionCommentResource(Comment::all());
+        return response()->json(['data'=> $data], 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -30,7 +31,8 @@ class CommentController extends Controller
      */
 
     public function show($id){
-        return new ShowCommentResource(Comment::find($id), 200, [], JSON_FORCE_OBJECT);
+        $data = new ShowCommentResource(Comment::find($id));
+        return response()->json(['data'=> $data], 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -58,7 +60,7 @@ class CommentController extends Controller
     public function update(UpdateCommentRequest $request, $id){
         $data = $request->validated();
         $data +=['updated_at' => now()];
-        Comment::where('id',$id)->update($data);
+        Comment::find($id)->update($data);
         return response()->json(['massage'=> 'you comment is updated'], 200, [], JSON_FORCE_OBJECT);
     }
 
