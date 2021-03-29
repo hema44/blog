@@ -25,16 +25,16 @@ Route::group([
 
 
 Route::middleware(['jwt.verify'])->group(function() {
-    Route::post('post/', [PostController::class , 'store']);
-    Route::get('post/',[PostController::class , 'index']);
+    Route::post('posts/', [PostController::class , 'store']);
+    Route::get('posts/',[PostController::class , 'index']);
     Route::get('post/{id}',[PostController::class , 'show']);
     Route::middleware('user.verify')->group(function (){
         Route::delete('post/{id}', [PostController::class , 'destroy']);
         Route::put('post/{id}',[PostController::class , 'update']);
     });
 
-    Route::post('comment/', [CommentController::class , 'store']);
-    Route::get('comment/',[CommentController::class , 'index']);
+    Route::post('comments/', [CommentController::class , 'store']);
+    Route::get('comments/',[CommentController::class , 'index']);
     Route::get('comment/{id}',[CommentController::class , 'show']);
     Route::middleware('comment.verify')->group(function (){
         Route::delete('comment/{id}', [CommentController::class , 'destroy']);
