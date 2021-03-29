@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Resources\post\CollectionPostResource;
-use App\Http\Resources\post\ShowPostResource;
+use App\Http\Resources\Post\CollectionPostResource;
+use App\Http\Resources\Post\ShowPostResource;
 use App\Models\Post;
-use App\Http\Requests\post\UpdatePostRequest;
-use App\Http\Requests\post\CreatePostRequest;
-
+use App\Http\Requests\Post\UpdatePostRequest;
+use App\Http\Requests\Post\CreatePostRequest;
 
 
 class PostController extends Controller
@@ -18,8 +17,8 @@ class PostController extends Controller
      * @author ibrahem
      */
     public function index(){
-
-        return new CollectionPostResource(Post::all(), 200, [], JSON_FORCE_OBJECT);
+        $data = new CollectionPostResource(Post::all());
+        return response()->json(['data' => $data] , 200, [], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -31,7 +30,8 @@ class PostController extends Controller
      */
 
     public function show($id){
-        return new ShowPostResource(Post::find($id) , 200 , [] ,JSON_FORCE_OBJECT);
+        $data = new ShowPostResource(post::find($id));
+        return response()->json(['data'=> $data] , 200 , [] ,JSON_FORCE_OBJECT);
     }
 
     /**
