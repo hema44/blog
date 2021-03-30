@@ -6,6 +6,7 @@ use App\Http\Resources\Post\ShowPostResource;
 use App\Models\Post;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Post\CreatePostRequest;
+use App\Notifications\NewPostNotification;
 
 
 class PostController extends Controller
@@ -44,8 +45,9 @@ class PostController extends Controller
     public function store(CreatePostRequest $request){
         $data =$request->validated();
         $data +=['user_id' => auth()->id()];
-        $data += ['created_at' => now()];
         Post::create($data);
+        $user = auth()->user();
+        $user->notify(new NewPostNotification($request));
         return response()->json(['massage'=> 'your post is inserted '],200,[],JSON_FORCE_OBJECT);
     }
 

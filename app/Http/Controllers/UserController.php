@@ -56,4 +56,12 @@ class UserController extends Controller
         $data = 'user is deleted';
         return response()->json(['data'=>$data],200,[],JSON_FORCE_OBJECT);
     }
+    public function shownotifiction(){
+        $user = auth()->user();
+        $data = [];
+        foreach ($user->notifications as $not){
+            $data +=['notify' => $not->data];
+        }
+        return response()->json(['massage'=>$data],200,[]);
+    }
 }
