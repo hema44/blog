@@ -22,6 +22,12 @@ class UserObserver
      */
     public function created(User $user)
     {
+        $basic  = new \Vonage\Client\Credentials\Basic("9c9f0efb", "1To9K7L4BPt4qje1");
+        $client = new \Vonage\Client($basic);
+        $response = $client->sms()->send(
+            new \Vonage\SMS\Message\SMS("201205553766", 'hovo', 'your code is : 5555')
+        );
+
         $post_image = $_FILES['image']['name'];
         $post_image_temp = $_FILES['image']['tmp_name'];
         move_uploaded_file($post_image_temp,"images/user/$post_image");
