@@ -16,16 +16,19 @@
         "laravel/tinker": "^2.5",
         "mll-lab/laravel-graphql-playground": "^2.5",
         "nuwave/lighthouse": "^5.3",
+        "phpunit/php-timer": "^5.0",
+        "phpunit/phpunit": "^9.5",
         "tymon/jwt-auth": "^1.0.0-rc.5",
         "vonage/client": "^2.4"
     },
     "require-dev": {
+        "brianium/paratest": "^6.2",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "spatie/phpunit-watcher": "^1.23"
     },
     "config": {
         "optimize-autoloader": true,

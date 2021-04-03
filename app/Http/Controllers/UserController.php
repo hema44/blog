@@ -42,6 +42,10 @@ class UserController extends Controller
         $data = new CollectionUserResource(User::all());
         return response()->json(['$data'=> $data],200,[],JSON_FORCE_OBJECT);
     }
+    public function show($id){
+        $data = User::find($id);
+        return $data;
+    }
 
     /**
      *

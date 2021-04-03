@@ -130,6 +130,17 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/vonage/client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/brianium/paratest" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jolicode/jolinotif" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/phpunit-watcher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/yosymfony/resource-watcher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/stdio-react" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/term-react" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/utf8-react" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
