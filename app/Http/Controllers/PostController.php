@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Http\Requests\Post\CreatePostRequest;
 use App\Notifications\NewPostNotification;
+use Spatie\Activitylog\Models\Activity;
 
 
 class PostController extends Controller
@@ -32,7 +33,8 @@ class PostController extends Controller
 
     public function show($id){
         $data = new ShowPostResource(post::find($id));
-        return response()->json(['data'=> $data] , 200 , [] ,JSON_FORCE_OBJECT);
+
+        return response()->json(['data'=> $data] , 201 , [] ,JSON_FORCE_OBJECT);
     }
 
     /**
@@ -48,7 +50,9 @@ class PostController extends Controller
         Post::create($data);
         $user = auth()->user();
         $user->notify(new NewPostNotification($request));
+
         return response()->json(['massage'=> 'your post is inserted '],200,[],JSON_FORCE_OBJECT);
+
     }
 
     /**

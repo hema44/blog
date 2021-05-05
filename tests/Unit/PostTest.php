@@ -3,7 +3,10 @@
 namespace Tests\Unit;
 
 use App\Http\Controllers\PostController;
+use App\Http\Resources\Post\ShowPostResource;
+use App\Models\User;
 use Tests\TestCase;
+use JWTAuth;
 
 class PostTest extends TestCase
 {
@@ -11,21 +14,15 @@ class PostTest extends TestCase
      * A basic unit test example.
      *
      * @return void
+     * @author ibrahem
      */
-    public function test_example()
-    {
-        $data = [
-            'id'=> 1,
-            'Title'=>'PHP',
-            'body'=>'ddd',
-            'user_id' =>1,
-            'created_at'=>"2021-04-01T12:53:04.000000Z",
-            'updated_at'=>"2021-04-01T12:53:04.000000Z"
-        ];
-       $comperwd =  response()->json(['data'=> $data] , 200 , [] ,JSON_FORCE_OBJECT);
-       $post = new PostController();
-       $aut_data = $post->show(1);
-//       $this->assertEquals($comperwd,$aut_data);
-        $this->assertTrue($aut_data === $comperwd);
+
+    public function test_usr(){
+        $aut_data=[];
+        $post = new PostController();
+        $aut_data += ['Title' => $post->show(1)->Title];
+        $this->assertEquals(['Title'=> 'PHP'],$aut_data);
+    }
+    public function test_exampel(){
     }
 }

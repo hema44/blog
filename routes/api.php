@@ -15,6 +15,8 @@ use App\Http\Controllers\PostController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -22,6 +24,7 @@ Route::group([
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('register',[UserController::class,'store']);
 });
+
 
 
 Route::middleware(['jwt.verify'])->group(function() {
